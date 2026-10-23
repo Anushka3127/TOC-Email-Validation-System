@@ -1,0 +1,285 @@
+<CodeBlock language="css" editable>
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f1f5f9;
+    color: #1e293b;
+}
+
+.container {
+    width: 92%;
+    max-width: 1100px;
+    margin: 25px auto;
+}
+
+header {
+    text-align: center;
+    background: #173b70;
+    color: white;
+    padding: 25px 15px;
+    border-radius: 12px;
+    margin-bottom: 22px;
+}
+
+header h1 {
+    margin: 0 0 10px;
+    font-size: 30px;
+}
+
+header p {
+    margin: 0;
+    color: #dbeafe;
+}
+
+.card {
+    background: white;
+    padding: 22px;
+    margin-bottom: 22px;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px #0000000c;
+}
+
+h2 {
+    color: #173b70;
+    font-size: 21px;
+    margin-top: 0;
+}
+
+input {
+    width: 100%;
+    padding: 13px;
+    font-size: 16px;
+    border: 1px solid #cbd5e1;
+    border-radius: 7px;
+    outline: none;
+}
+
+input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px #2563eb20;
+}
+
+.buttons,
+.examples {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 14px;
+}
+
+button {
+    padding: 11px 18px;
+    border: none;
+    border-radius: 7px;
+    background: #2563eb;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.85;
+}
+
+.reset {
+    background: #64748b;
+}
+
+.example {
+    background: #475569;
+}
+
+.result {
+    padding: 13px;
+    margin-top: 16px;
+    background: #f1f5f9;
+    border-radius: 7px;
+    font-weight: bold;
+    overflow-wrap: anywhere;
+}
+
+.result.valid {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.result.invalid {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.hint {
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.diagram-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+#dfa {
+    display: block;
+    width: 100%;
+    min-width: 700px;
+    height: auto;
+}
+
+.state {
+    fill: white;
+    stroke: #64748b;
+    stroke-width: 2;
+    transition: fill 0.2s, stroke 0.2s;
+}
+
+.state.active {
+    fill: #bbf7d0;
+    stroke: #16a34a;
+    stroke-width: 4;
+}
+
+.state.rejected {
+    fill: #fecaca;
+    stroke: #dc2626;
+    stroke-width: 4;
+}
+
+.final-inner {
+    fill: none;
+    stroke: #64748b;
+    stroke-width: 2;
+    pointer-events: none;
+}
+
+.state-label {
+    font-size: 15px;
+    text-anchor: middle;
+    font-weight: bold;
+    fill: #1e293b;
+}
+
+.state-desc {
+    font-size: 12px;
+    text-anchor: middle;
+    fill: #475569;
+}
+
+.edge {
+    fill: none;
+    stroke: #64748b;
+    stroke-width: 2;
+}
+
+.edge.active {
+    stroke: #16a34a;
+    stroke-width: 4;
+    marker-end: url(#activeArrow);
+}
+
+.edge.rejected-edge {
+    stroke: #dc2626;
+    stroke-width: 4;
+    marker-end: url(#rejectArrow);
+}
+
+.edge-label {
+    font-size: 11px;
+    text-anchor: middle;
+    fill: #334155;
+}
+
+.state-info,
+.diagram-status {
+    padding: 12px;
+    background: #eff6ff;
+    border-radius: 7px;
+    margin-top: 10px;
+    overflow-wrap: anywhere;
+}
+
+.diagram-status {
+    color: #334155;
+    font-size: 14px;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 580px;
+}
+
+th,
+td {
+    padding: 12px;
+    border: 1px solid #e2e8f0;
+    text-align: center;
+    font-size: 14px;
+}
+
+th {
+    background: #173b70;
+    color: white;
+}
+
+tbody tr:nth-child(even) {
+    background: #f8fafc;
+}
+
+tbody tr.current-step {
+    background: #dcfce7;
+    font-weight: bold;
+}
+
+tbody tr.rejected-step {
+    background: #fee2e2;
+    color: #991b1b;
+    font-weight: bold;
+}
+
+.regex {
+    display: block;
+    padding: 15px;
+    background: #eff6ff;
+    border-radius: 7px;
+    overflow-wrap: anywhere;
+    white-space: normal;
+    line-height: 1.8;
+    color: #173b70;
+}
+
+footer {
+    text-align: center;
+    padding: 20px 10px;
+    color: #64748b;
+    font-size: 14px;
+}
+
+@media (max-width: 600px) {
+    .container {
+        width: 95%;
+        margin: 12px auto;
+    }
+
+.card {
+        padding: 15px;
+    }
+
+header h1 {
+        font-size: 25px;
+    }
+
+.buttons button {
+        flex: 1;
+    }
+}
+</CodeBlock>

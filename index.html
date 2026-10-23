@@ -1,0 +1,208 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOC Email Validation Simulator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+
+    <header>
+        <h1>Email Validation System</h1>
+        <p>Theory of Computation | DFA Simulator</p>
+    </header>
+
+    <section class="card">
+        <h2>1. Enter Email</h2>
+
+        <input type="text" id="email"
+               placeholder="Example: abc@gmail.com"
+               autocomplete="off">
+
+        <div class="buttons">
+            <button id="validateBtn">Validate Email</button>
+            <button id="resetBtn" class="reset">Reset</button>
+        </div>
+
+        <div id="result" class="result">
+            Enter an email address to begin.
+        </div>
+    </section>
+
+    <section class="card">
+        <h2>2. DFA Transition Diagram</h2>
+        <p class="hint">
+            Green indicates the current state and active transition.
+            Red indicates rejection.
+        </p>
+
+        <div class="diagram-wrapper">
+            <svg id="dfa" viewBox="0 0 760 310"
+                 role="img" aria-label="Email validation state diagram">
+
+                <defs>
+                    <marker id="arrow" markerWidth="8" markerHeight="8"
+                            refX="6" refY="3" orient="auto">
+                        <path d="M0,0 L0,6 L6,3 Z" fill="#64748b"/>
+                    </marker>
+                    <marker id="activeArrow" markerWidth="8" markerHeight="8"
+                            refX="6" refY="3" orient="auto">
+                        <path d="M0,0 L0,6 L6,3 Z" fill="#16a34a"/>
+                    </marker>
+                    <marker id="rejectArrow" markerWidth="8" markerHeight="8"
+                            refX="6" refY="3" orient="auto">
+                        <path d="M0,0 L0,6 L6,3 Z" fill="#dc2626"/>
+                    </marker>
+                </defs>
+
+                <!-- Start -->
+                <path id="startEdge" d="M8 115 L45 115"
+                      class="edge" marker-end="url(#arrow)"/>
+
+                <!-- q0 to q1 -->
+                <path id="e01" d="M95 115 L155 115"
+                      class="edge" marker-end="url(#arrow)"/>
+                <text x="125" y="102" class="edge-label">local char</text>
+
+                <!-- q1 loop -->
+                <path id="e11" d="M175 92 C150 35 235 35 210 92"
+                      class="edge" marker-end="url(#arrow)"/>
+                <text x="193" y="34" class="edge-label">local char</text>
+
+                <!-- q1 to q2 -->
+                <path id="e12" d="M215 115 L275 115"
+                      class="edge" marker-end="url(#arrow)"/>
+                <text x="245" y="102" class="edge-label">@</text>
+
+                <!-- q2 to q3 -->
+                <path id="e23" d="M325 115 L385 115"
+                      class="edge" marker-end="url(#arrow)"/>
+                <text x="355" y="102" class="edge-label">letter/digit</text>
+
+                <!-- q3 loop -->
+                <path id="e33" d="M405 92 C380 35 465 35 440 92"
+                      class="edge" marker-end="url(#arrow)"/>
+                <text x="413" y="34" class="edge-label">domain char</text>
+
+                <!-- q3 to q4 -->
+                <path id="e34" d="M445 115 L505 115"
+                      class="edge" marker-end="url(#arrow)"/>
+                <text x="475" y="102" class="edge-label">.</text>
+
+                <!-- q4 to q5 -->
+                <path id="e45" d="M555 115 L615 115"
+                      class="edge" marker-end="url(#arrow)"/>
+                <text x="585" y="102" class="edge-label">letter</text>
+
+                <!-- q5 loop -->
+                <path id="e55" d="M635 92 C610 35 695 35 670 92"
+                      class="edge" marker-end="url(#arrow)"/>
+                <text x="643" y="34" class="edge-label">letter</text>
+
+                <!-- Dead/reject state -->
+                <path id="rejectEdge" d="M70 140 L70 220"
+                      class="edge" marker-end="url(#arrow)"/>
+                <text x="80" y="185" class="edge-label">invalid</text>
+
+                <!-- States -->
+                <circle id="q0" cx="70" cy="115" r="25" class="state"/>
+                <text x="70" y="120" class="state-label">q0</text>
+
+                <circle id="q1" cx="190" cy="115" r="25" class="state"/>
+                <text x="190" y="120" class="state-label">q1</text>
+
+                <circle id="q2" cx="300" cy="115" r="25" class="state"/>
+                <text x="300" y="120" class="state-label">q2</text>
+
+                <circle id="q3" cx="420" cy="115" r="25" class="state"/>
+                <text x="420" y="120" class="state-label">q3</text>
+
+                <circle id="q4" cx="530" cy="115" r="25" class="state"/>
+                <text x="530" y="120" class="state-label">q4</text>
+
+                <circle id="q5" cx="640" cy="115" r="25" class="state"/>
+                <circle id="q5inner" cx="640" cy="115" r="19"
+                        class="final-inner"/>
+                <text x="640" y="120" class="state-label">q5</text>
+
+                <circle id="qd" cx="70" cy="245" r="25" class="state"/>
+                <text x="70" y="250" class="state-label">qd</text>
+
+                <text x="70" y="160" class="state-desc">Start</text>
+                <text x="190" y="160" class="state-desc">Local part</text>
+                <text x="300" y="160" class="state-desc">After @</text>
+                <text x="420" y="160" class="state-desc">Domain</text>
+                <text x="530" y="160" class="state-desc">After dot</text>
+                <text x="640" y="160" class="state-desc">Accept</text>
+                <text x="70" y="285" class="state-desc">Reject</text>
+            </svg>
+        </div>
+
+        <div id="stateInfo" class="state-info">
+            Current state: q0 (Start)
+        </div>
+        <div id="svgStatus" class="diagram-status">
+            Waiting for input
+        </div>
+    </section>
+
+    <section class="card">
+        <h2>3. Dry Run / Transition Table</h2>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Step</th>
+                        <th>Input Symbol</th>
+                        <th>Previous State</th>
+                        <th>Next State</th>
+                        <th>Transition</th>
+                    </tr>
+                </thead>
+                <tbody id="dryRun">
+                    <tr>
+                        <td colspan="5">Enter an email to see the dry run.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="card">
+        <h2>4. Regular Expression</h2>
+        <code class="regex">^[A-Za-z0-9.!#$%&amp;'*+/=?^_`{|}~-]+@[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?(?:\.[A-Za-z]{2,})+$</code>
+        <p>
+            The regular expression checks the local part, @ symbol,
+            domain labels and top-level domain.
+        </p>
+    </section>
+
+    <section class="card">
+        <h2>5. Test Examples</h2>
+        <div class="examples">
+            <button class="example" data-email="abc@gmail.com">
+                abc@gmail.com
+            </button>
+            <button class="example" data-email="student@yahoo.in">
+                student@yahoo.in
+            </button>
+            <button class="example" data-email="studentgmail.com">
+                studentgmail.com
+            </button>
+            <button class="example" data-email="abc@domain..com">
+                abc@domain..com
+            </button>
+        </div>
+    </section>
+
+    <footer>
+        TOC Mini Project | Email Validation Using Regular Expressions
+    </footer>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
